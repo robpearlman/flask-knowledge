@@ -1,0 +1,61 @@
+{% extends "template.html" %}
+{% block content %}
+  <h1>Welcome to My Place</h1>
+  <br>
+  <div class="add-item">
+    <h3>Add a new item:</h3>
+      <form action="/add" method="post">
+        {{ form.csrf_token }}
+        <p>
+        {{ form.name(placeholder="name") }}
+        <span class="error">
+          {% if form.name.errors %}
+            {% for error in form.name.errors %}
+              {{ error }}
+            {% endfor %}
+          {% endif %}
+        </span>
+        </p>
+        <p>
+        {{ form.item_details(placeholder="item details") }}
+        <span class="error">
+          {% if form.item_details.errors %}
+            {% for error in form.item_details.errors %}
+              {{ error }}
+            {% endfor %}
+          {% endif %}
+        </span>
+        </p>
+        <p><input type="submit" value="Submit"></p>
+      </form>
+  </div>
+
+
+  <div class="entries">
+    <br>
+    <br>
+    <h2>Items:</h2>
+    <div class="datagrid">
+      <table>
+        <thead>
+          <tr>
+            <th width="150px"><strong>Item Name</strong></th>
+            <th width="100px"><strong>Posted Date</strong></th>
+            <th width="300px"><strong>Item Details</strong></th>
+            <th><strong>Actions</strong></th>
+          </tr>
+        </thead>
+        {% for o in open_tasks %}
+          <tr>
+            <td width="150">{{ o.name }}</td>
+            <td width="100px">{{ o.created_date }}</td>
+            <td width="300px">{{ o.item_details }}</td>
+          </tr>
+        {% endfor %}
+      </table>
+    </div>
+  </div>
+  <br>
+  <br>
+  <div>
+{% endblock %}
