@@ -1,11 +1,13 @@
 <!DOCTYPE html> <html>
  <head>
 	<title>Welcome, friends!</title>
+	<link href="http://maxcdn.bootstrapcdn.com/bootswatch/3.2.0/yeti/bootstrap.min.css" rel="stylesheet">
 	<link rel="stylesheet" 
 	href="{{ url_for('static', filename='styles.css') }}">
  </head> 
  <body>
   <div class="container"> 
+    <br>
   	{% for message in get_flashed_messages() %} 
   	  <div class="flash">{{ message }}</div>
 {% endfor %} 

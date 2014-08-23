@@ -2,7 +2,7 @@
 
 
 from views import db
-from models import ItemTable
+from models import Item
 from datetime import date
 
 # create the database and the db table

@@ -2,7 +2,7 @@ import os
 import unittest
 
 from config import  basedir
-from models import ItemTable 
+#from models import Item # - models is imported 
 from views import app, db
 
 TEST_DB = 'test.db'
@@ -35,10 +35,11 @@ class AllTests(unittest.TestCase):
 		new_item = ItemTable("An item", "A bunch of details about the item")
 		db.session.add(new_item)
 		db.item.commit()
-		test = db.session.query(ItemTable).all()
+		test = db.session.query(Item).all()
 		for t in test:
 			t.name
 		assert t.name == "An item"
+		#assert t.item_details == "A bunch of details about the item"
 
 
 if __name__ == '__main__': 
