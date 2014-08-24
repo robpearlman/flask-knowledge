@@ -1,13 +1,25 @@
 {% extends "template.html" %}
 {% block content %}
+
   <h1>Welcome to My Place</h1>
   <br>
   <div class="add-item">
     <h3>Add a new item:</h3>
-      <form class="form-inline" action="{{ url_for('add_item') }}" method="post">
+      <form class="form-inline" action="
+                {% if modify_item %}
+                  {{ url_for('save_modify') }}
+                {% else %}
+                  {{ url_for('add_item') }}
+                {% endif %}
+      " method="post">
         {{ form.csrf_token }}
         <p>
+          {% if modify_item %}
+             {{ form.item_id }}
+          {% endif %}
+        <p>
         {{ form.name(placeholder="name") }}
+
         <span class="error">
           {% if form.name.errors %}
             {% for error in form.name.errors %}
@@ -15,9 +27,11 @@
             {% endfor %}
           {% endif %}
         </span>
+
         </p>
         <p>
         {{ form.item_details(placeholder="item details") }}
+
         <span class="error">
           {% if form.item_details.errors %}
             {% for error in form.item_details.errors %}
@@ -25,6 +39,7 @@
             {% endfor %}
           {% endif %}
         </span>
+
         </p>
         <p><input type="submit" value="Submit"></p>
       </form>
@@ -40,7 +55,7 @@
             <th width="150px"><strong>Item Name</strong></th>
             <th width="125px"><strong>Posted Date</strong></th>
             <th width="300px"><strong>Item Details</strong></th>
-            <th><strong>Actions</strong></th>
+            <th width="125px"><strong>Actions</strong></th>
           </tr>
         </thead>
         {% for o in all_items %}
@@ -48,6 +63,9 @@
             <td width="150">{{ o.name }}</td>
             <td width="125px">{{ o.posted_date }}</td>
             <td width="300px">{{ o.item_details }}</td>
+            <td width="125px">
+                    <a href="{{ url_for('delete_item', item_id = o.item_id) }}">Delete</a>
+                    <a href="{{ url_for('modify_item', item_id = o.item_id) }}">Modify</a>
           </tr>
         {% endfor %}
       </table>
