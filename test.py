@@ -1,46 +1,37 @@
+# test.py
 import os 
 import unittest
-
-from config import  basedir
-#from models import Item # - models is imported 
-from views import app, db
+from views import app, db 
+from models import Item 
+from config import basedir
 
 TEST_DB = 'test.db'
 
-class AllTests(unittest.TestCase):
-
-    ############################
-    #### setup and teardown ####
-    ############################
-
-    # executed prior to each test
+class Users(unittest.TestCase):
+# this is a special method that is executed prior to each test
     def setUp(self):
-        app.config['TESTING'] = True
-        app.config['WTF_CSRF_ENABLED'] = False
-        app.config['SQLALCHEMY_DATABASE_URI'] = 'sqlite:///' + \
-            os.path.join(basedir, TEST_DB)
-        self.app = app.test_client()
+        app.config['TESTING'] = True 
+        app.config['SQLALCHEMY_DATABASE_URI'] = 'sqlite:///' + os.path.join(basedir, TEST_DB) 
+        self.app = app.test_client() 
         db.create_all()
 
-    # executed after to each test
-    def tearDown(self):
+    # this is a special method that is executed after each test
+    def tearDown(self): 
         db.drop_all()
 
-    ###############
-    #### tests ####
-    ###############
-
-	# each test should start with 'test'
-	def test_can_add_item(self): 
-		new_item = ItemTable("An item", "A bunch of details about the item")
-		db.session.add(new_item)
-		db.item.commit()
-		test = db.session.query(Item).all()
-		for t in test:
-			t.name
-		assert t.name == "An item"
-		#assert t.item_details == "A bunch of details about the item"
+    # each test should start with 'test'
+    def test_item_setup(self):
+        import datetime
+        new_item = Item("name field", "info field",
+        datetime.datetime.utcnow()) 
+        db.session.add(new_item) 
+        db.session.commit() # post the example item
+        items = db.session.query(Item).all() 
+        for item in items:
+            item.name
+        assert item.name == "name field" # make sure it matches
 
 
-if __name__ == '__main__': 
-	unittest.main()
+if __name__ == "__main__": 
+    unittest.main()
+

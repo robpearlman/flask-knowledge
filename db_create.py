@@ -2,7 +2,7 @@
 
 
 from views import db
-from models import Item
+from models import User #Item
 from datetime import date
 
 # create the database and the db table

@@ -1,0 +1,41 @@
+{% extends "template.html" %}
+{% block content %}
+<h1>Welcome to My Site.</h1>
+<form class="form-signin" role="form" method="post" action="{{url_for('register')}}">
+  <div class="lead">Please register to start</div>
+{{ form.csrf_token }}
+  <p>
+    {{ form.name(placeholder="Username") }}
+    <span class="error">
+      {% if form.name.errors %}
+        {% for error in form.name.errors %}
+          {{ error }}
+        {% endfor %}
+      {% endif %}
+    </span>
+  </p>
+  <p>
+    {{ form.password(placeholder="password") }}
+    <span class="error">
+      {% if form.password.errors %}
+        {% for error in form.password.errors %}
+          {{ error }}
+        {% endfor %}
+      {% endif %}
+    </span>
+  </p>
+    {{ form.confirm(placeholder="confirm password") }}
+    <span class="error">
+      {% if form.confirm.errors %}
+        {% for error in form.confirm.errors %}
+          {{ error }}
+        {% endfor %}
+      {% endif %}
+    </span>
+  </p>
+  <button class="btn btn-sm btn-success" type="submit">Register</button>
+  <br>
+  <br>
+  <p><em>Already registered?</em> Click <a href="{{ url_for('login') }}">here</a> to login.</p>
+</form>
+{% endblock %}

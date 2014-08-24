@@ -1,8 +1,9 @@
 {% extends "template.html" %}
 {% block content %}
 
+<script src="//cdn.ckeditor.com/4.4.4/standard/ckeditor.js"></script>
+
   <h1>Welcome to My Place</h1>
-  <br>
   <div class="add-item">
     <h3>Add a new item:</h3>
       <form class="form-inline" action="
@@ -41,7 +42,7 @@
         </span>
 
         </p>
-        <p><input type="submit" value="Submit"></p>
+        <p><button class="btn btn-sm btn-success" type="submit">Submit</button></p>
       </form>
   </div>
 

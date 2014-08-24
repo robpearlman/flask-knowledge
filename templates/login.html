@@ -1,0 +1,35 @@
+{% extends "template.html" %}
+<!--By having an active_page variable and setting it outside of the 
+block content on the login.html page, we are able to check if it is inside the block on the login page to display the appropriate login identifier. This makes me so happy -->
+{% set active_page = "index" %}
+
+{% block content %}
+<h1>Welcome to My Place.</h1>
+<form class="form-signin" role="form" method="POST" action="/login/">
+  <div class="lead">Sign in to see what things are up</div>
+  <p>
+    {{ form.name(placeholder="name") }}
+    <span class="error">
+      {% if form.name.errors %}
+        {% for error in form.name.errors %}
+          {{ error }}
+        {% endfor %}
+      {% endif %}
+    </span>
+    </p>
+    <p>
+    {{ form.password(placeholder="password") }}
+    <span class="error">
+      {% if form.password.errors %}
+        {% for error in form.password.errors %}
+          {{ error }}
+        {% endfor %}
+      {% endif %}
+    </span>
+        </p>
+    <button class="btn btn-sm btn-success" type="submit">Sign in</button>
+<br>
+  <br>
+  <p><em>Need an account? </em><a href="{{ url_for('register') }}">Signup!!</a></p>
+</form>
+{% endblock %}
